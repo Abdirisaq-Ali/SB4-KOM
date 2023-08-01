@@ -7,9 +7,7 @@ package dk.sdu.mmmi.cbse.common.data.entityparts;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
-import static dk.sdu.mmmi.cbse.common.data.GameKeys.LEFT;
-import static dk.sdu.mmmi.cbse.common.data.GameKeys.RIGHT;
-import static dk.sdu.mmmi.cbse.common.data.GameKeys.UP;
+
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
@@ -18,17 +16,19 @@ import static java.lang.Math.sqrt;
  *
  * @author Alexander
  */
-public class MovingPart
-        implements EntityPart {
+public class MovingPart implements EntityPart {
 
     private float dx, dy;
     private float deceleration, acceleration;
-    private float maxSpeed, rotationSpeed;
+    private float startSpeed, maxSpeed, rotationSpeed;
     private boolean left, right, up;
+    private boolean startSpeedSet;
 
-    public MovingPart(float deceleration, float acceleration, float maxSpeed, float rotationSpeed) {
+    public MovingPart(float deceleration, float acceleration, float maxSpeed, float rotationSpeed, float startSpeed) {
         this.deceleration = deceleration;
         this.acceleration = acceleration;
+        this.startSpeed = startSpeed;
+        this.startSpeedSet = !(startSpeed > 0);
         this.maxSpeed = maxSpeed;
         this.rotationSpeed = rotationSpeed;
     }
@@ -61,6 +61,10 @@ public class MovingPart
         this.up = up;
     }
 
+    public float getSpeed() {
+        return (float) sqrt(dx * dx + dy * dy);
+    }
+
     @Override
     public void process(GameData gameData, Entity entity) {
         PositionPart positionPart = entity.getPart(PositionPart.class);
@@ -68,6 +72,12 @@ public class MovingPart
         float y = positionPart.getY();
         float radians = positionPart.getRadians();
         float dt = gameData.getDelta();
+
+        if (!this.startSpeedSet) {
+            dx = (float) (Math.cos(radians) * this.startSpeed);
+            dy = (float) (Math.sin(radians) * this.startSpeed);
+            this.startSpeedSet = true;
+        }
 
         // turning
         if (left) {
@@ -78,7 +88,7 @@ public class MovingPart
             radians -= rotationSpeed * dt;
         }
 
-        // accelerating            
+        // accelerating
         if (up) {
             dx += cos(radians) * acceleration * dt;
             dy += sin(radians) * acceleration * dt;
