@@ -5,12 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
-import dk.sdu.mmmi.cbse.asteroid.AsteroidControlSystem;
-import dk.sdu.mmmi.cbse.asteroid.AsteroidPlugin;
-import dk.sdu.mmmi.cbse.bullet.BulletControlSystem;
-import dk.sdu.mmmi.cbse.bullet.BulletPlugin;
-import dk.sdu.mmmi.cbse.collision.CollisionDetector;
+//import com.badlogic.gdx.math.MathUtils;
+//import dk.sdu.mmmi.cbse.asteroid.AsteroidControlSystem;
+//import dk.sdu.mmmi.cbse.asteroid.AsteroidPlugin;
+//import dk.sdu.mmmi.cbse.bullet.BulletControlSystem;
+//import dk.sdu.mmmi.cbse.bullet.BulletPlugin;
+//import dk.sdu.mmmi.cbse.collision.CollisionDetector;
 import dk.sdu.mmmi.cbse.common.data.Color;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -19,12 +19,14 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.util.SPILocator;
 import dk.sdu.mmmi.cbse.enemy.EnemyControlSystem;
-import dk.sdu.mmmi.cbse.enemy.EnemyPlugin;
+//import dk.sdu.mmmi.cbse.enemy.EnemyPlugin;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
 import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
 import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Game
@@ -34,9 +36,6 @@ public class Game
     private ShapeRenderer sr;
 
     private final GameData gameData = new GameData();
-    private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
-    private List<IPostEntityProcessingService> entityPostProcessors = new ArrayList<>();
-    private List<IGamePluginService> entityPlugins = new ArrayList<>();
     private World world = new World();
 
     @Override
@@ -55,41 +54,9 @@ public class Game
                 new GameInputProcessor(gameData)
         );
 
-        // Adding player
-        IGamePluginService playerPlugin = new PlayerPlugin();
-        IEntityProcessingService playerProcess = new PlayerControlSystem();
-        entityPlugins.add(playerPlugin);
-        entityProcessors.add(playerProcess);
-
-        // Adding Enemy
-        for (int i = 0; i < MathUtils.random(1, 5); i++) {
-            IGamePluginService enemyPlugin = new EnemyPlugin();
-            entityPlugins.add(enemyPlugin);
-        }
-        IEntityProcessingService enemyProcess = new EnemyControlSystem();
-        entityProcessors.add(enemyProcess);
-
-        // Bullet controller
-        IEntityProcessingService bulletProcess = new BulletControlSystem();
-        entityProcessors.add(bulletProcess);
-
-        // Big Asteroid
-        for (int i = 0; i < MathUtils.random(5, 20); i++) {
-            IGamePluginService bigAsteroidPlugin = new AsteroidPlugin(MathUtils.random(2,3));
-            entityPlugins.add(bigAsteroidPlugin);
-        }
-
-        // Big Asteroid controller
-        IEntityProcessingService bigAsteroidProcess = new AsteroidControlSystem();
-        entityProcessors.add(bigAsteroidProcess);
-
-        // Collision processor
-        IPostEntityProcessingService collisionProcess = new CollisionDetector();
-        entityPostProcessors.add(collisionProcess);
-
-        // Lookup all Game Plugins using ServiceLoader
-        for (IGamePluginService iGamePlugin : entityPlugins) {
-            iGamePlugin.start(gameData, world);
+        // Create initial objects
+        for (IGamePluginService gamePlugin : getPluginServices()) {
+            gamePlugin.start(gameData, world);
         }
     }
 
@@ -110,31 +77,11 @@ public class Game
     }
 
     private void update() {
-        // Bullet
-        for (Entity entity : world.getEntities()) {
-            try {
-                ShootingPart shootingPart = entity.getPart(ShootingPart.class);
-
-                if (shootingPart.getShooting()) {
-                    IGamePluginService bulletPlugin = new BulletPlugin(
-                            entity
-                    );
-                    entityPlugins.add(bulletPlugin);
-                    bulletPlugin.start(gameData, world);
-                }
-            } catch (NullPointerException error) {
-                // Part does not shoot
-            }
-        }
-
-        // Update
-        for (IEntityProcessingService entityProcessorService : entityProcessors) {
+        for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
         }
-
-        // Collision detection
-        for (IPostEntityProcessingService entityPostProcessorService : entityPostProcessors) {
-            entityPostProcessorService.process(gameData, world);
+        for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
+            postEntityProcessorService.process(gameData, world);
         }
     }
 
@@ -174,5 +121,17 @@ public class Game
 
     @Override
     public void dispose() {
+    }
+
+    private Collection<? extends IGamePluginService> getPluginServices() {
+        return SPILocator.locateAll(IGamePluginService.class);
+    }
+
+    private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
+        return SPILocator.locateAll(IEntityProcessingService.class);
+    }
+
+    private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
+        return SPILocator.locateAll(IPostEntityProcessingService.class);
     }
 }

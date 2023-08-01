@@ -8,7 +8,11 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
+import dk.sdu.mmmi.cbse.common.services.IBulletCreator;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.util.SPILocator;
+
+import java.util.Collection;
 
 
 public class EnemyControlSystem implements IEntityProcessingService {
@@ -44,6 +48,13 @@ public class EnemyControlSystem implements IEntityProcessingService {
             lifePart.process(gameData, enemy);
 
             shootingPart.setShooting(MathUtils.random(0f,1f) > 0.99f);
+            if (shootingPart.getShooting()) {
+                Collection<IBulletCreator> bulletPlugins = SPILocator.locateAll(IBulletCreator.class);
+
+                for (IBulletCreator bulletPlugin : bulletPlugins) {
+                    world.addEntity(bulletPlugin.create(enemy, gameData));
+                }
+            }
 
             if (lifePart.isDead()) {
                 world.removeEntity(enemy);

@@ -12,7 +12,12 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
+import dk.sdu.mmmi.cbse.common.services.IBulletCreator;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.util.SPILocator;
+
+import java.util.Collection;
+
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
@@ -40,6 +45,13 @@ public class PlayerControlSystem implements IEntityProcessingService {
             lifePart.process(gameData, player);
 
             shootingPart.setShooting(gameData.getKeys().isDown(GameKeys.SPACE));
+            if (shootingPart.getShooting()) {
+                Collection<IBulletCreator> bulletPlugins = SPILocator.locateAll(IBulletCreator.class);
+
+                for (IBulletCreator bulletPlugin : bulletPlugins) {
+                    world.addEntity(bulletPlugin.create(player, gameData));
+                }
+            }
 
             if (lifePart.isDead()) {
                 world.removeEntity(player);
