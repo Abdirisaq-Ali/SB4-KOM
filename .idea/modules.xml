@@ -15,7 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/AsteroidsNetbeansModules/AsteroidsNetbeansModules-parent.iml" filepath="$PROJECT_DIR$/AsteroidsNetbeansModules/AsteroidsNetbeansModules-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/AsteroidsServiceLoader/Bullet/Bullet.iml" filepath="$PROJECT_DIR$/AsteroidsServiceLoader/Bullet/Bullet.iml" />
       <module fileurl="file://$PROJECT_DIR$/AsteroidsNetbeansModules/Bullet/Bullet (1).iml" filepath="$PROJECT_DIR$/AsteroidsNetbeansModules/Bullet/Bullet (1).iml" />
-      <module fileurl="file://$PROJECT_DIR$/AsteroidsJava9/Collision/Collision.iml" filepath="$PROJECT_DIR$/AsteroidsJava9/Collision/Collision.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AsteroidsEntityFramework/Collision/Collision.iml" filepath="$PROJECT_DIR$/AsteroidsEntityFramework/Collision/Collision.iml" />
       <module fileurl="file://$PROJECT_DIR$/AsteroidsJava9/Collision/Collision (1).iml" filepath="$PROJECT_DIR$/AsteroidsJava9/Collision/Collision (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/AsteroidsNetbeansModules/Collision/Collision (2).iml" filepath="$PROJECT_DIR$/AsteroidsNetbeansModules/Collision/Collision (2).iml" />
       <module fileurl="file://$PROJECT_DIR$/AsteroidsServiceLoader/Collision/Collision (3).iml" filepath="$PROJECT_DIR$/AsteroidsServiceLoader/Collision/Collision (3).iml" />

@@ -1,6 +1,6 @@
 package dk.sdu.mmmi.cbse.enemy;
 
-import com.badlogic.gdx.math.MathUtils;
+
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -29,17 +29,17 @@ public class EnemyControlSystem implements IEntityProcessingService {
 
             this.totalTime = (this.totalTime + gameData.getDelta()) % 100;
 
-            float controlRotateAmplifier = MathUtils.random(0.1f,2f);
-            float controlGeneralAmplifier = MathUtils.random(0.1f,2f);
+            float controlRotateAmplifier = (float) (Math.random() * 2f) + 0.1f;
+            float controlGeneralAmplifier = (float) (Math.random() * 2f) + 0.1f;
 
             movingPart.setLeft(
-                    (MathUtils.sin(totalTime * controlRotateAmplifier + MathUtils.random(0f, 2f)) * controlGeneralAmplifier) < MathUtils.random(-0.3f, -controlGeneralAmplifier)
+                    (Math.sin(totalTime * controlRotateAmplifier + (Math.random() * 2f)) * controlGeneralAmplifier) < this.getRandomNumber(-0.3f, -controlGeneralAmplifier)
             );
             movingPart.setRight(
-                    (MathUtils.sin(totalTime * controlRotateAmplifier + MathUtils.random(0f, 2f)) * controlGeneralAmplifier) > MathUtils.random(0.8f, controlGeneralAmplifier)
+                    (Math.sin(totalTime * controlRotateAmplifier + (Math.random() * 2f)) * controlGeneralAmplifier) > this.getRandomNumber(0.8f, controlGeneralAmplifier)
             );
             movingPart.setUp(
-                    MathUtils.random(0.01f, 1f) > MathUtils.random(0.5f, 1f)
+                    this.getRandomNumber(0.01f, 1f) > this.getRandomNumber(0.5f, 1f)
             );
 
             movingPart.process(gameData, enemy);
@@ -47,7 +47,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
             shootingPart.process(gameData, enemy);
             lifePart.process(gameData, enemy);
 
-            shootingPart.setShooting(MathUtils.random(0f,1f) > 0.99f);
+            shootingPart.setShooting(this.getRandomNumber(0f,1f) > 0.99f);
             if (shootingPart.getShooting()) {
                 Collection<IBulletCreator> bulletPlugins = SPILocator.locateAll(IBulletCreator.class);
 
@@ -106,5 +106,9 @@ public class EnemyControlSystem implements IEntityProcessingService {
 
         entity.setShapeX(shapex);
         entity.setShapeY(shapey);
+    }
+
+    private float getRandomNumber(float min, float max) {
+        return (float) ((Math.random() * (max - min)) + min);
     }
 }

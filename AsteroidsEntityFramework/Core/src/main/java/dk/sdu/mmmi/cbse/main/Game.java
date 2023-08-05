@@ -23,8 +23,8 @@ import dk.sdu.mmmi.cbse.common.util.SPILocator;
 //import dk.sdu.mmmi.cbse.enemy.EnemyControlSystem;
 //import dk.sdu.mmmi.cbse.enemy.EnemyPlugin;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
-import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
-import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
+//import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
+//import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -40,15 +40,14 @@ public class Game
 
     @Override
     public void create() {
-
-        gameData.setDisplayWidth(Gdx.graphics.getWidth());
-        gameData.setDisplayHeight(Gdx.graphics.getHeight());
-
-        cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
-        cam.update();
-
         sr = new ShapeRenderer();
+
+        if (
+                gameData.getDisplayWidth() != Gdx.graphics.getWidth()
+                        || gameData.getDisplayHeight() != Gdx.graphics.getHeight()
+        ) {
+            this.updateCam(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        }
 
         Gdx.input.setInputProcessor(
                 new GameInputProcessor(gameData)
@@ -62,7 +61,6 @@ public class Game
 
     @Override
     public void render() {
-
         // clear screen to black
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -74,6 +72,15 @@ public class Game
         draw();
 
         gameData.getKeys().update();
+    }
+
+    private void updateCam(int width, int height) {
+        gameData.setDisplayWidth(width);
+        gameData.setDisplayHeight(height);
+
+        cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
+        cam.translate((float) gameData.getDisplayWidth() / 2, (float) gameData.getDisplayHeight() / 2);
+        cam.update();
     }
 
     private void update() {
@@ -109,6 +116,7 @@ public class Game
 
     @Override
     public void resize(int width, int height) {
+        this.updateCam(width, height);
     }
 
     @Override
