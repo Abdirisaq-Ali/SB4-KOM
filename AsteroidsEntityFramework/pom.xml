@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
     <name>Asteroids</name>
     <modules>
-        <module>Astroids</module>
+        <module>Asteroid</module>
         <module>Collision</module>
         <module>Core</module>
         <module>Common</module>

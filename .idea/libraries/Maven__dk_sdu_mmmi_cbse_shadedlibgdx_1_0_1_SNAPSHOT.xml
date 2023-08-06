@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: dk.sdu.mmmi.cbse:shadedlibgdx:1.0.1-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/dk/sdu/mmmi/cbse/shadedlibgdx/1.0.1-SNAPSHOT/shadedlibgdx-1.0.1-SNAPSHOT.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/dk/sdu/mmmi/cbse/shadedlibgdx/1.0.1-SNAPSHOT/shadedlibgdx-1.0.1-20230329.095949-7.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/dk/sdu/mmmi/cbse/shadedlibgdx/1.0.1-SNAPSHOT/shadedlibgdx-1.0.1-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/dk/sdu/mmmi/cbse/shadedlibgdx/1.0.1-SNAPSHOT/shadedlibgdx-1.0.1-20230329.095949-7-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/dk/sdu/mmmi/cbse/shadedlibgdx/1.0.1-SNAPSHOT/shadedlibgdx-1.0.1-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/dk/sdu/mmmi/cbse/shadedlibgdx/1.0.1-SNAPSHOT/shadedlibgdx-1.0.1-20230329.095949-7-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Astroids</artifactId>
+    <artifactId>Asteroid</artifactId>
     <packaging>jar</packaging>
     <name>Asteroid</name>
 

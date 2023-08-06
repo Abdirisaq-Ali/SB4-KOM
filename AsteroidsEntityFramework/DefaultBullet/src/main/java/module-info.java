@@ -4,6 +4,7 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 module DefaultBullet {
 
+
     requires Common;
 
     provides IBulletCreator with dk.sdu.mmmi.cbse.bullet.BulletPlugin;

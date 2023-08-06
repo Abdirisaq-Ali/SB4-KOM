@@ -66,7 +66,7 @@
     <bytecodeTargetLevel>
       <module name="AgeCalculatorSpring" target="1.8" />
       <module name="AgeCalculatorSpringClient" target="1.8" />
-      <module name="Asteroid" target="9" />
+      <module name="Asteroid" target="11" />
       <module name="Asteroid (1)" target="9" />
       <module name="Asteroid (2)" target="1.8" />
       <module name="Asteroid (3)" target="9" />
@@ -79,7 +79,7 @@
       <module name="AsteroidsNetbeansModules-parent" target="1.5" />
       <module name="Bullet" target="9" />
       <module name="Bullet (1)" target="1.8" />
-      <module name="Collision" target="19" />
+      <module name="Collision" target="11" />
       <module name="Collision (1)" target="9" />
       <module name="Collision (2)" target="1.8" />
       <module name="Collision (3)" target="9" />

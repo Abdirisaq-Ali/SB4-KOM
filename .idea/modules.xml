@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SpringAgeCalculator/AgeCalculatorSpring/AgeCalculatorSpring.iml" filepath="$PROJECT_DIR$/SpringAgeCalculator/AgeCalculatorSpring/AgeCalculatorSpring.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpringAgeCalculator/AgeCalculatorSpringClient/AgeCalculatorSpringClient.iml" filepath="$PROJECT_DIR$/SpringAgeCalculator/AgeCalculatorSpringClient/AgeCalculatorSpringClient.iml" />
-      <module fileurl="file://$PROJECT_DIR$/AsteroidsJava9/Asteroid/Asteroid.iml" filepath="$PROJECT_DIR$/AsteroidsJava9/Asteroid/Asteroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AsteroidsEntityFramework/Asteroid/Asteroid.iml" filepath="$PROJECT_DIR$/AsteroidsEntityFramework/Asteroid/Asteroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/AsteroidsJava9/Asteroid/Asteroid (1).iml" filepath="$PROJECT_DIR$/AsteroidsJava9/Asteroid/Asteroid (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/AsteroidsNetbeansModules/Asteroid/Asteroid (2).iml" filepath="$PROJECT_DIR$/AsteroidsNetbeansModules/Asteroid/Asteroid (2).iml" />
       <module fileurl="file://$PROJECT_DIR$/AsteroidsServiceLoader/Asteroid/Asteroid (3).iml" filepath="$PROJECT_DIR$/AsteroidsServiceLoader/Asteroid/Asteroid (3).iml" />
